@@ -1,0 +1,19 @@
+name: Build web version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pygbag
+      - run: python -m pygbag --build game
+      - uses: actions/upload-artifact@v4
+        with:
+          name: blockblast-web
+          path: game/build/web
